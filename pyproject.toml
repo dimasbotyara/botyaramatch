@@ -1,0 +1,166 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+# ─────────────────────────────────────────────────────────────
+#  Project metadata
+# ─────────────────────────────────────────────────────────────
+[project]
+name = "botyaramatch"
+version = "0.1.0"
+description = "Find the closest matching string: Levenshtein, Jaro-Winkler, trigrams, ё/е normalization and keyboard layout fixing for EN/RU."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+authors = [
+    { name = "dimasbotyara" },
+]
+
+maintainers = [
+    { name = "dimasbotyara" },
+]
+
+keywords = [
+    "fuzzy",
+    "fuzzy-matching",
+    "closest-match",
+    "string-similarity",
+    "levenshtein",
+    "edit-distance",
+    "jaro",
+    "jaro-winkler",
+    "trigram",
+    "dice",
+    "russian",
+    "ё",
+    "keyboard-layout",
+    "transliteration",
+]
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Natural Language :: English",
+    "Natural Language :: Russian",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing",
+    "Topic :: Text Processing :: Linguistic",
+    "Typing :: Typed",
+]
+
+dependencies = []
+
+# ─────────────────────────────────────────────────────────────
+#  Optional dependencies (extras)
+# ─────────────────────────────────────────────────────────────
+[project.optional-dependencies]
+fast = ["rapidfuzz>=3.0"]          # C++ acceleration for Levenshtein & Jaro-Winkler
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.5",
+    "mypy>=1.8",
+    "build>=1.0",
+    "twine>=5.0",
+]
+
+# ─────────────────────────────────────────────────────────────
+#  URLs
+# ─────────────────────────────────────────────────────────────
+[project.urls]
+Homepage = "https://github.com/dimasbotyara/botyaramatch"
+Repository = "https://github.com/dimasbotyara/botyaramatch"
+"Bug Tracker" = "https://github.com/dimasbotyara/botyaramatch/issues"
+Changelog = "https://github.com/dimasbotyara/botyaramatch/blob/main/CHANGELOG.md"
+Documentation = "https://github.com/dimasbotyara/botyaramatch#readme"
+
+# ─────────────────────────────────────────────────────────────
+#  Setuptools: which packages to ship
+# ─────────────────────────────────────────────────────────────
+[tool.setuptools]
+packages = ["botyaramatch"]
+
+[tool.setuptools.package-data]
+botyaramatch = ["py.typed"]
+
+# ─────────────────────────────────────────────────────────────
+#  pytest
+# ─────────────────────────────────────────────────────────────
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-ra -q"
+
+# ─────────────────────────────────────────────────────────────
+#  coverage
+# ─────────────────────────────────────────────────────────────
+[tool.coverage.run]
+branch = true
+source = ["botyaramatch"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]
+
+# ─────────────────────────────────────────────────────────────
+#  ruff (linter + formatter)
+# ─────────────────────────────────────────────────────────────
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+src = ["botyaramatch", "tests"]
+extend-exclude = ["*.md", "build", "dist", ".venv"]
+
+[tool.ruff.lint]
+select = [
+    "E", "W", "F", "I", "B", "C4", "UP", "SIM", "RUF",
+]
+ignore = [
+    "E501",
+    "RUF001",  # ambiguous unicode character in string
+    "RUF002",  # ambiguous unicode character in docstring
+    "RUF003",  # ambiguous unicode character in comment
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["B011"]   # allow assert False in tests
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+# ─────────────────────────────────────────────────────────────
+#  mypy
+# ─────────────────────────────────────────────────────────────
+[tool.mypy]
+python_version = "3.10"
+files = ["botyaramatch"]
+strict = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unreachable = true
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = "rapidfuzz.*"
+ignore_missing_imports = true

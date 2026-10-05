@@ -1,0 +1,78 @@
+# ---- Python bytecode ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# ---- Distribution / packaging ----
+build/
+dist/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ---- Unit test / coverage ----
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+htmlcov/
+*.mo
+*.pot
+
+# ---- Virtual environments ----
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# ---- Editors / IDEs ----
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# ---- OS junk ----
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# ---- mypy / ruff / etc. ----
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.ruff_cache/
+
+# ---- Build artifacts from editable installs ----
+*.whl
+*.tar.gz
